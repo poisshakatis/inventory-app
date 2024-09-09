@@ -2,7 +2,7 @@
 
 import SelectInput from '@/components/SelectInput';
 import TextInput from '@/components/TextInput';
-import StorageDto from '@/dtos/StorageDto';
+import StorageDTO from '@/dtos/storage.dto';
 import OptionData from '@/interfaces/OptionData';
 import { StorageService } from '@/services/StorageService';
 import { useUser } from '@/UserContext';
@@ -40,7 +40,7 @@ export default function Create() {
     const fetchData = async () => {
       const response = await new StorageService().getAll(userContext);
       if (response.data) {
-        const options = [] as OptionData[];
+        const options: OptionData[] = [];
         for (const storage of response.data) {
           options.push({
             label: storage.name,
@@ -55,7 +55,7 @@ export default function Create() {
   }, []);
 
   const onSubmit = async (data: FormData) => {
-    const storage = { name: data.name } as StorageDto;
+    const storage = { name: data.name } as StorageDTO;
 
     if (data.parentStorageId) {
       const parentStorage = options.find(s => s.value === data.parentStorageId);

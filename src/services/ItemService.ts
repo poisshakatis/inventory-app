@@ -1,7 +1,7 @@
-import ItemDto from '@/dtos/ItemDto';
+import ItemDTO from '@/dtos/item.dto';
 import { BaseEntityService } from './BaseEntityService';
 
-export class ItemService extends BaseEntityService<ItemDto> {
+export class ItemService extends BaseEntityService<ItemDTO> {
   constructor() {
     super('v1/Items');
   }

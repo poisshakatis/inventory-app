@@ -3,7 +3,7 @@
 import TextInput from '@/components/TextInput';
 import { NAME_LENGTH, PASSWORD_LENGTH } from '@/constants/lengths';
 import { EMAIL_REGEX, PASSWORD_REGEX } from '@/constants/regexes';
-import RegisterInfo from '@/interfaces/RegisterInfo';
+import RegisterInfo from '@/dtos/register.dto';
 import AccountService from '@/services/AccountService';
 import { useUser } from '@/UserContext';
 import { yupResolver } from '@hookform/resolvers/yup';

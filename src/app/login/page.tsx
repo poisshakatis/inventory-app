@@ -8,9 +8,9 @@ import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { object, string } from 'yup';
 import { useUser } from '@/UserContext';
-import LoginInfo from '@/interfaces/LoginInfo';
 import { EMAIL_REGEX, PASSWORD_REGEX } from '@/constants/regexes';
 import { PASSWORD_LENGTH } from '@/constants/lengths';
+import LoginInfo from '@/dtos/login.dto';
 
 const schema = object({
   email: string()

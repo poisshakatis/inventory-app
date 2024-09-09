@@ -1,6 +1,6 @@
 'use client';
 
-import StorageDto from '@/dtos/StorageDto';
+import StorageDTO from '@/dtos/storage.dto';
 import { StorageService } from '@/services/StorageService';
 import { useUser } from '@/UserContext';
 import Link from 'next/link';
@@ -14,7 +14,7 @@ export default function Index() {
     return notFound();
   }
 
-  const [data, setData] = useState([] as StorageDto[]);
+  const [data, setData] = useState([] as StorageDTO[]);
 
   useEffect(() => {
     fetchData();

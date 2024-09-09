@@ -1,6 +1,6 @@
 'use client';
 
-import ItemDto from '@/dtos/ItemDto';
+import ItemDTO from '@/dtos/item.dto';
 import { ItemService } from '@/services/ItemService';
 import { StorageService } from '@/services/StorageService';
 import { useUser } from '@/UserContext';
@@ -34,7 +34,7 @@ export default function Index() {
     fetchStorages();
   }, []);
 
-  const [items, setItems] = useState([] as ItemDto[]);
+  const [items, setItems] = useState([] as ItemDTO[]);
   const itemService = new ItemService();
 
   const fetchItems = async () => {

@@ -3,7 +3,7 @@
 import SelectInput from '@/components/SelectInput';
 import TextInput from '@/components/TextInput';
 import Category from '@/constants/Category';
-import ItemDto from '@/dtos/ItemDto';
+import ItemDTO from '@/dtos/item.dto';
 import OptionData from '@/interfaces/OptionData';
 import { ItemService } from '@/services/ItemService';
 import { StorageService } from '@/services/StorageService';
@@ -26,7 +26,6 @@ interface FormData {
 
 const schema = object({
   name: string().required('Name is required').max(128),
-  serialNumber: string().max(128),
   description: string().required('Description is required').max(2048),
   category: string().required(),
   quantity: number().typeError('Quantity must be a number').integer().min(1).required(),
@@ -63,7 +62,7 @@ export default function Edit() {
       fetchCurrentItem();
       const response = await new StorageService().getAll(userContext);
       if (response.data) {
-        const options = [] as OptionData[];
+        const options: OptionData[] = [];
         for (const storage of response.data) {
           options.push({
             label: storage.name,
@@ -97,8 +96,8 @@ export default function Edit() {
   const onSubmit = async (data: FormData) => {
     const storage = storageOptions.find(s => s.value === data.storageId);
 
-    const item = {
-      id: id,
+    const item: ItemDTO = {
+      id: id as string,
       name: data.name,
       image: data.image,
       serialNumber: data.serialNumber,
@@ -106,19 +105,19 @@ export default function Edit() {
       category: data.category,
       quantity: data.quantity,
       storageId: data.storageId,
-      storageName: storage?.label
-    } as ItemDto;
+      storageName: storage?.label!
+    };
 
     await itemService.update(id as string, item, userContext);
     router.push('/items');
   };
 
   const categoryOptions = Object.keys(Category)
-    .filter(key => isNaN(Number(key)))
-    .map(key => ({
-      label: key,
-      value: key
-    }));
+  .filter(key => isNaN(Number(key)))
+  .map(key => ({
+    label: key,
+    value: key
+  }));
 
   return (
     <FormProvider {...methods}>

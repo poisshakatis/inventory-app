@@ -3,7 +3,7 @@
 import SelectInput from '@/components/SelectInput';
 import TextInput from '@/components/TextInput';
 import Category from '@/constants/Category';
-import ItemDto from '@/dtos/ItemDto';
+import ItemDTO from '@/dtos/item.dto';
 import OptionData from '@/interfaces/OptionData';
 import { ItemService } from '@/services/ItemService';
 import { StorageService } from '@/services/StorageService';
@@ -56,7 +56,7 @@ export default function Create() {
     const fetchData = async () => {
       const response = await new StorageService().getAll(userContext);
       if (response.data) {
-        const options = [] as OptionData[];
+        const options: OptionData[] = [];
         for (const storage of response.data) {
           options.push({
             label: storage.name,
@@ -73,7 +73,7 @@ export default function Create() {
   const onSubmit = async (data: FormData) => {
     const storage = storageOptions.find(s => s.value === data.storageId);
 
-    const item = {
+    const item: ItemDTO = {
       name: data.name,
       image: data.image,
       serialNumber: data.serialNumber,
@@ -81,8 +81,8 @@ export default function Create() {
       category: data.category,
       quantity: data.quantity,
       storageId: data.storageId,
-      storageName: storage?.label
-    } as ItemDto;
+      storageName: storage?.label!
+    };
 
     const response = await new ItemService().add(item, userContext);
     if (response.data) {

@@ -2,7 +2,7 @@
 
 import SelectInput from '@/components/SelectInput';
 import TextInput from '@/components/TextInput';
-import StorageDto from '@/dtos/StorageDto';
+import StorageDTO from '@/dtos/storage.dto';
 import OptionData from '@/interfaces/OptionData';
 import { StorageService } from '@/services/StorageService';
 import { useUser } from '@/UserContext';
@@ -50,7 +50,7 @@ export default function Edit() {
         methods.setValue('name', currentStorage?.name!);
         methods.setValue('parentStorageId', currentStorage?.parentStorageId);
 
-        const options = [] as OptionData[];
+        const options: OptionData[] = [];
         for (let index = 0; index < response.data.length; index++) {
           const storage = response.data[index];
           options.push({
@@ -68,7 +68,7 @@ export default function Edit() {
   const router = useRouter();
 
   const onSubmit = async (data: FormData) => {
-    const storage = { id: id, name: data.name } as StorageDto;
+    const storage = { id: id, name: data.name } as StorageDTO;
 
     if (data.parentStorageId) {
       const parentStorage = options.find(s => s.value === data.parentStorageId);
