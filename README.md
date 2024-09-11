@@ -29,6 +29,8 @@ pnpm dev
 bun dev
 ```
 
-## TODO
+### What I would do different
 
-- Swap yup for zod (typescript-first, should be possible scenario: not required but if field not empty has max length)
+- Swap yup for zod (typescript-first, scenario can be possible: input not required but if field not empty then check length) + file upload validation
+- Refactor services code (there's got to be a better solution)
+- Make it more presentable

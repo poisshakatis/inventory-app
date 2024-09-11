@@ -1,9 +1,9 @@
 import { User } from '@/UserContext';
-import { BaseService } from './BaseService';
 import ResultObject from '@/interfaces/ResultObject';
 import TokenRefreshInfo from '@/dtos/tokenRefresh.dto';
 import RegisterInfo from '@/dtos/register.dto';
 import LoginInfo from '@/dtos/login.dto';
+import BaseService from './BaseService';
 
 export default class AccountService extends BaseService {
   constructor() {

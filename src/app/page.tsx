@@ -10,7 +10,7 @@ export default function Home() {
     <main className='pb-3' role='main'>
       <div className='text-center'>
         <h1 className='display-4'>Welcome</h1>
-        {!user && <p>Register yourself <Link href={'/register'}>if you're new here</Link></p>}
+        {!user && <Link href={'/register'}>New here?</Link>}
       </div>
     </main>
   );

@@ -1,9 +1,7 @@
 'use client';
 
-import CATEGORY_OPTIONS from '@/constants/Category';
-import Category from '@/constants/Category';
 import UserStatisticsDTO from '@/dtos/userStatistics.dto';
-import { AdminStatService } from '@/services/AdminStatService';
+import ItemStatService from '@/services/ItemStatService';
 import { useUser } from '@/UserContext';
 import { notFound } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -22,9 +20,7 @@ export default function Index() {
   }, []);
 
   const fetchData = async () => {
-    const response = await new AdminStatService().getStatistics(userContext);
-
-    console.log(response);
+    const response = await new ItemStatService().getAllUsersWithCategoryItemCount(userContext);
 
     if (response.data) {
       setData(response.data);

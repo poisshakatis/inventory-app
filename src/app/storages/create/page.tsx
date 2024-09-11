@@ -1,10 +1,10 @@
 'use client';
 
-import SelectInput from '@/components/SelectInput';
-import TextInput from '@/components/TextInput';
+import Input from '@/components/Input';
+import SelectInput from '@/components/Select';
 import StorageDTO from '@/dtos/storage.dto';
 import OptionData from '@/interfaces/OptionData';
-import { StorageService } from '@/services/StorageService';
+import StorageService from '@/services/StorageService';
 import { useUser } from '@/UserContext';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { notFound, useRouter } from 'next/navigation';
@@ -23,6 +23,7 @@ const schema = object({
 
 export default function Create() {
   const userContext = useUser();
+  
   if (!userContext.user) {
     return notFound();
   }
@@ -39,14 +40,17 @@ export default function Create() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await new StorageService().getAll(userContext);
+      
       if (response.data) {
         const options: OptionData[] = [];
+        
         for (const storage of response.data) {
           options.push({
             label: storage.name,
             value: storage.id!
           });
         }
+        
         setOptions(options);
       }
     };
@@ -65,6 +69,7 @@ export default function Create() {
     }
 
     const response = await new StorageService().add(storage, userContext);
+    
     if (response.data) {
       router.push('/storages');
     }
@@ -74,7 +79,7 @@ export default function Create() {
     <FormProvider {...methods}>
       <div className='row col-md-4'>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <TextInput
+          <Input
             name='name'
             label='Name' />
 

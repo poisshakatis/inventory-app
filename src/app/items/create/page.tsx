@@ -1,12 +1,12 @@
 'use client';
 
-import SelectInput from '@/components/SelectInput';
-import TextInput from '@/components/TextInput';
+import Input from '@/components/Input';
+import Select from '@/components/Select';
 import Category from '@/constants/Category';
-import ItemDTO from '@/dtos/item.dto';
+import ItemSendDTO from '@/dtos/itemSend.dto';
 import OptionData from '@/interfaces/OptionData';
-import { ItemService } from '@/services/ItemService';
-import { StorageService } from '@/services/StorageService';
+import ItemSendService from '@/services/ItemSendService';
+import StorageService from '@/services/StorageService';
 import { useUser } from '@/UserContext';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { notFound, useRouter } from 'next/navigation';
@@ -16,7 +16,7 @@ import { number, object, string } from 'yup';
 
 interface FormData {
   name: string;
-  image?: string;
+  image?: FileList;
   serialNumber?: string;
   description: string;
   category: string;
@@ -55,14 +55,17 @@ export default function Create() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await new StorageService().getAll(userContext);
+
       if (response.data) {
         const options: OptionData[] = [];
+
         for (const storage of response.data) {
           options.push({
             label: storage.name,
             value: storage.id!
           });
         }
+
         setStorageOptions(options);
       }
     };
@@ -73,9 +76,9 @@ export default function Create() {
   const onSubmit = async (data: FormData) => {
     const storage = storageOptions.find(s => s.value === data.storageId);
 
-    const item: ItemDTO = {
+    const item: ItemSendDTO = {
       name: data.name,
-      image: data.image,
+      image: data.image![0],
       serialNumber: data.serialNumber,
       description: data.description,
       category: data.category,
@@ -84,7 +87,8 @@ export default function Create() {
       storageName: storage?.label!
     };
 
-    const response = await new ItemService().add(item, userContext);
+    const response = await new ItemSendService().add(item, userContext);
+
     if (response.data) {
       router.push('/items');
     }
@@ -101,33 +105,34 @@ export default function Create() {
     <FormProvider {...methods}>
       <div className='row col-md-4'>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <TextInput
+          <Input
             name='name'
             label='Name' />
 
-          <TextInput
+          <Input
+            type='file'
             name='image'
             label='Image' />
 
-          <TextInput
+          <Input
             name='serialNumber'
             label='Serial Number' />
 
-          <TextInput
+          <Input
             name='description'
             label='Description' />
 
-          <SelectInput
+          <Select
             name='category'
             label='Category'
             options={categoryOptions}
             isOptional={false} />
 
-          <TextInput
+          <Input
             name='quantity'
             label='Quantity' />
 
-          <SelectInput
+          <Select
             name='storageId'
             label='Storage Name'
             options={storageOptions}

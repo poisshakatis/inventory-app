@@ -8,7 +8,7 @@ interface Props {
   isOptional?: boolean;
 }
 
-export default function SelectInput({ name, label, options, isOptional = true }: Props) {
+export default function Select({ name, label, options, isOptional = true }: Props) {
   const { register } = useFormContext();
 
   return (

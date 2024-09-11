@@ -19,13 +19,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body className={inter.className}>
         <UserProvider>
           <Header />
 
-          <div className="container">
-            <main role="main" className="pb-3">
+          <div className='container'>
+            <main role='main' className='pb-3'>
               {children}
             </main>
           </div>

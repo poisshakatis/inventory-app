@@ -7,7 +7,7 @@ interface Props {
   label: string;
 }
 
-export default function TextInput({ type = 'text', name, label }: Props) {
+export default function Input({ type = 'text', name, label }: Props) {
   const { register, formState: { errors } } = useFormContext();
 
   return (

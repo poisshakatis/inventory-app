@@ -1,6 +1,6 @@
 'use client';
 
-import TextInput from '@/components/TextInput';
+import Input from '@/components/Input';
 import { NAME_LENGTH, PASSWORD_LENGTH } from '@/constants/lengths';
 import { EMAIL_REGEX, PASSWORD_REGEX } from '@/constants/regexes';
 import RegisterInfo from '@/dtos/register.dto';
@@ -59,6 +59,7 @@ export default function Register() {
 
   const onSubmit = async (data: RegisterInfo) => {
     const response = await new AccountService().register(data);
+    
     if (response.data) {
       setUser(response.data);
       router.push('/');
@@ -72,27 +73,27 @@ export default function Register() {
           <h2>Create a new account.</h2>
           <hr />
 
-          <TextInput
+          <Input
             name='firstName'
             type='text'
             label='First Name' />
 
-          <TextInput
+          <Input
             name='lastName'
             type='text'
             label='Last Name' />
 
-          <TextInput
+          <Input
             name='email'
             type='email'
             label='Email' />
 
-          <TextInput
+          <Input
             name='password'
             type='password'
             label='Password' />
 
-          <TextInput
+          <Input
             name='confirmPassword'
             type='password'
             label='Confirm Password' />

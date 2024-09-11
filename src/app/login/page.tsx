@@ -1,6 +1,5 @@
 'use client';
 
-import TextInput from '@/components/TextInput';
 import AccountService from '@/services/AccountService';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/navigation';
@@ -11,6 +10,7 @@ import { useUser } from '@/UserContext';
 import { EMAIL_REGEX, PASSWORD_REGEX } from '@/constants/regexes';
 import { PASSWORD_LENGTH } from '@/constants/lengths';
 import LoginInfo from '@/dtos/login.dto';
+import Input from '@/components/Input';
 
 const schema = object({
   email: string()
@@ -43,6 +43,7 @@ export default function Login() {
 
   const onSubmit = async (data: LoginInfo) => {
     const response = await new AccountService().login(data);
+    
     if (response.data) {
       setUser(response.data);
       router.push('/');
@@ -63,12 +64,12 @@ export default function Login() {
         </div>
         <form
           onSubmit={methods.handleSubmit(onSubmit)}>
-          <TextInput
+          <Input
             name='email'
             type='email'
             label='Email' />
 
-          <TextInput
+          <Input
             name='password'
             type='password'
             label='Password' />

@@ -10,12 +10,12 @@ export default function Identity() {
 
 const LoggedOut = () => {
   return (
-    <ul className="navbar-nav">
-      <li className="nav-item">
-        <Link href={'/register'} className="nav-link text-dark">Register</Link>
+    <ul className='navbar-nav'>
+      <li className='nav-item'>
+        <Link href={'/register'} className='nav-link text-dark'>Register</Link>
       </li>
-      <li className="nav-item">
-        <Link href={'/login'} className="nav-link text-dark">Login</Link>
+      <li className='nav-item'>
+        <Link href={'/login'} className='nav-link text-dark'>Login</Link>
       </li>
     </ul>
   );
@@ -33,12 +33,12 @@ const LoggedIn: React.FC<UserProfileProps> = ({ userContext }) => {
   }
 
   return (
-    <ul className="navbar-nav">
-      <li className="nav-item">
-        <Link href={'/'} className="nav-link text-dark" title="Manage">Hello {user!.firstName} {user!.lastName}!</Link>
+    <ul className='navbar-nav'>
+      <li className='nav-item'>
+        <Link href={'/'} className='nav-link text-dark' title='Manage'>Hello {user!.firstName} {user!.lastName}!</Link>
       </li>
-      <li className="nav-item">
-        <a onClick={() => doLogout()} href={'/'} className="nav-link text-dark" title="Logout">Logout</a>
+      <li className='nav-item'>
+        <a onClick={() => doLogout()} href={'/'} className='nav-link text-dark' title='Logout'>Logout</a>
       </li>
     </ul>
   );

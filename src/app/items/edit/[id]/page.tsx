@@ -1,12 +1,12 @@
 'use client';
 
-import SelectInput from '@/components/SelectInput';
-import TextInput from '@/components/TextInput';
+import Input from '@/components/Input';
+import Select from '@/components/Select';
 import Category from '@/constants/Category';
-import ItemDTO from '@/dtos/item.dto';
+import ItemSendDTO from '@/dtos/itemSend.dto';
 import OptionData from '@/interfaces/OptionData';
-import { ItemService } from '@/services/ItemService';
-import { StorageService } from '@/services/StorageService';
+import ItemSendService from '@/services/ItemSendService';
+import StorageService from '@/services/StorageService';
 import { useUser } from '@/UserContext';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { notFound, useParams, useRouter } from 'next/navigation';
@@ -16,7 +16,7 @@ import { number, object, string } from 'yup';
 
 interface FormData {
   name: string;
-  image?: string;
+  image?: FileList;
   serialNumber?: string;
   description: string;
   category: string;
@@ -44,7 +44,6 @@ export default function Edit() {
     resolver: yupResolver(schema),
     defaultValues: {
       name: '',
-      image: '',
       serialNumber: '',
       description: '',
       category: '',
@@ -55,20 +54,24 @@ export default function Edit() {
 
   const [storageOptions, setStorageOptions] = useState([] as OptionData[]);
   const { id } = useParams();
-  const itemService = new ItemService();
+  const itemService = new ItemSendService();
 
   useEffect(() => {
     const fetchData = async () => {
       fetchCurrentItem();
+
       const response = await new StorageService().getAll(userContext);
+
       if (response.data) {
         const options: OptionData[] = [];
+
         for (const storage of response.data) {
           options.push({
             label: storage.name,
             value: storage.id!
           });
         }
+
         setStorageOptions(options);
       }
     };
@@ -77,9 +80,9 @@ export default function Edit() {
       const response = await itemService.find(id as string, userContext);
 
       const item = response.data;
+
       if (item) {
         methods.setValue('name', item.name);
-        methods.setValue('image', item.image);
         methods.setValue('serialNumber', item.serialNumber);
         methods.setValue('description', item.description);
         methods.setValue('category', item.category);
@@ -87,7 +90,7 @@ export default function Edit() {
         methods.setValue('storageId', item.storageId);
       }
     };
-    
+
     fetchData();
   }, [setStorageOptions]);
 
@@ -96,10 +99,10 @@ export default function Edit() {
   const onSubmit = async (data: FormData) => {
     const storage = storageOptions.find(s => s.value === data.storageId);
 
-    const item: ItemDTO = {
+    const item: ItemSendDTO = {
       id: id as string,
       name: data.name,
-      image: data.image,
+      image: data.image![0],
       serialNumber: data.serialNumber,
       description: data.description,
       category: data.category,
@@ -113,43 +116,44 @@ export default function Edit() {
   };
 
   const categoryOptions = Object.keys(Category)
-  .filter(key => isNaN(Number(key)))
-  .map(key => ({
-    label: key,
-    value: key
-  }));
+    .filter(key => isNaN(Number(key)))
+    .map(key => ({
+      label: key,
+      value: key
+    }));
 
   return (
     <FormProvider {...methods}>
       <div className='row col-md-4'>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <TextInput
+          <Input
             name='name'
             label='Name' />
 
-          <TextInput
+          <Input
+            type='file'
             name='image'
             label='Image' />
 
-          <TextInput
+          <Input
             name='serialNumber'
             label='Serial Number' />
 
-          <TextInput
+          <Input
             name='description'
             label='Description' />
 
-          <SelectInput
+          <Select
             name='category'
             label='Category'
             options={categoryOptions}
             isOptional={false} />
 
-          <TextInput
+          <Input
             name='quantity'
             label='Quantity' />
 
-          <SelectInput
+          <Select
             name='storageId'
             label='Storage Name'
             options={storageOptions}

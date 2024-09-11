@@ -1,11 +1,11 @@
-import { BaseService } from './BaseService';
 import { UserContextType } from '@/UserContext';
 import AccountService from './AccountService';
 import { AxiosError } from 'axios';
 import BaseEntity from '@/interfaces/BaseEntity';
 import ResultObject from '@/interfaces/ResultObject';
+import BaseService from './BaseService';
 
-export abstract class BaseEntityService<
+export default abstract class BaseEntityService<
   TEntity extends BaseEntity
 > extends BaseService {
   constructor(
@@ -14,10 +14,10 @@ export abstract class BaseEntityService<
     super(baseUrl);
   }
 
-  async getAll(userContext: UserContextType): Promise<ResultObject<TEntity[]>> {
+  async getAll(userContext: UserContextType, endpoint: string = ''): Promise<ResultObject<TEntity[]>> {
     const { user, setUser } = userContext;
     try {
-      const response = await this.axios.get<TEntity[]>('', {
+      const response = await this.axios.get<TEntity[]>(endpoint, {
         headers: {
           Authorization: 'Bearer ' + user!.jwt,
         },
@@ -42,7 +42,7 @@ export abstract class BaseEntityService<
         if (userResponse.data) {
           setUser(userResponse.data);
 
-          const response = await this.axios.get<TEntity[]>('', {
+          const response = await this.axios.get<TEntity[]>(endpoint, {
             headers: {
               Authorization: 'Bearer ' + userResponse.data.jwt,
             },

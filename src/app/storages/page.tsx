@@ -1,7 +1,7 @@
 'use client';
 
 import StorageDTO from '@/dtos/storage.dto';
-import { StorageService } from '@/services/StorageService';
+import StorageService from '@/services/StorageService';
 import { useUser } from '@/UserContext';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';

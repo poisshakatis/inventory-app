@@ -1,4 +1,4 @@
 export default interface BaseEntity {
   id?: string;
-  [key: string]: string | number | undefined;
+  [key: string]: string | number | File | undefined;
 }

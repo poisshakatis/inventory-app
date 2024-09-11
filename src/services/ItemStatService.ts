@@ -1,19 +1,19 @@
 import { UserContextType } from '@/UserContext';
-import { BaseService } from './BaseService';
 import ResultObject from '@/interfaces/ResultObject';
 import { AxiosError } from 'axios';
 import AccountService from './AccountService';
 import UserStatisticsDTO from '@/dtos/userStatistics.dto';
+import BaseService from './BaseService';
 
-export class AdminStatService extends BaseService {
+export default class ItemStatService extends BaseService {
   constructor() {
-    super('v1/AdminStats');
+    super('v1/Items');
   }
 
-  async getStatistics(userContext: UserContextType): Promise<ResultObject<UserStatisticsDTO[]>> {
+  async getAllUsersWithCategoryItemCount(userContext: UserContextType): Promise<ResultObject<UserStatisticsDTO[]>> {
     const { user, setUser } = userContext;
     try {
-      const response = await this.axios.get<UserStatisticsDTO[]>('', {
+      const response = await this.axios.get<UserStatisticsDTO[]>('statistics', {
         headers: {
           Authorization: 'Bearer ' + user!.jwt,
         },
@@ -37,7 +37,7 @@ export class AdminStatService extends BaseService {
         if (userResponse.data) {
           setUser(userResponse.data);
 
-          const response = await this.axios.get<UserStatisticsDTO[]>('', {
+          const response = await this.axios.get<UserStatisticsDTO[]>('statistics', {
             headers: {
               Authorization: 'Bearer ' + userResponse.data.jwt,
             },

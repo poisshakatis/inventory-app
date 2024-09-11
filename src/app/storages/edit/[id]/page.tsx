@@ -1,10 +1,10 @@
 'use client';
 
-import SelectInput from '@/components/SelectInput';
-import TextInput from '@/components/TextInput';
+import Input from '@/components/Input';
+import SelectInput from '@/components/Select';
 import StorageDTO from '@/dtos/storage.dto';
 import OptionData from '@/interfaces/OptionData';
-import { StorageService } from '@/services/StorageService';
+import StorageService from '@/services/StorageService';
 import { useUser } from '@/UserContext';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { notFound, useParams, useRouter } from 'next/navigation';
@@ -23,6 +23,7 @@ const schema = object({
 
 export default function Edit() {
   const userContext = useUser();
+  
   if (!userContext.user) {
     return notFound();
   }
@@ -51,13 +52,16 @@ export default function Edit() {
         methods.setValue('parentStorageId', currentStorage?.parentStorageId);
 
         const options: OptionData[] = [];
+        
         for (let index = 0; index < response.data.length; index++) {
           const storage = response.data[index];
+          
           options.push({
             label: storage.name,
             value: storage.id!
           });
         }
+        
         setOptions(options);
       }
     };
@@ -83,7 +87,7 @@ export default function Edit() {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <TextInput
+        <Input
           name='name'
           label='Name' />
 
