@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeProviderProps } from "next-themes/dist/types";
 
-import { UserProvider } from "@/context/user-context";
+import { UserProvider } from "@/app/context/user-context";
 
 export interface ProvidersProps {
   children: React.ReactNode;

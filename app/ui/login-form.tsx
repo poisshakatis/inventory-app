@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { z } from "zod";
 
-import { useUser } from "@/context/user-context";
+import { useUser } from "@/app/context/user-context";
 
 const loginSchema = z.object({
   email: z.string().email(),
