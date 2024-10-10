@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   Navbar as NextUINavbar,
@@ -12,10 +12,8 @@ import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
-import {
-  Logo,
-} from "@/components/icons";
-import { useUser } from "@/context/AuthContext";
+import { Logo } from "@/components/icons";
+import { useUser } from "@/context/user-context";
 
 export const Navbar = () => {
   const { isAuthenticated, email, logout } = useUser();

@@ -1,5 +1,6 @@
-import { title } from '@/components/primitives';
-import { LoginForm } from '../ui/login-form';
+import { LoginForm } from "../ui/login-form";
+
+import { title } from "@/components/primitives";
 
 export default function LoginPage() {
   return (
