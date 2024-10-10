@@ -8,6 +8,7 @@ import AccountService from '@/services/AccountService';
 import { useUser } from '@/UserContext';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/navigation';
+import { Button } from 'react-bootstrap';
 import { FormProvider, useForm } from 'react-hook-form';
 import { object, ref, string } from 'yup';
 
@@ -70,7 +71,7 @@ export default function Register() {
     <FormProvider {...methods}>
       <div className='row col-md-4'>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <h2>Create a new account.</h2>
+          <h2>Create a new account</h2>
           <hr />
 
           <Input
@@ -98,11 +99,9 @@ export default function Register() {
             type='password'
             label='Confirm Password' />
 
-          <button
-            className='w-100 btn btn-lg btn-primary'
-            type='submit'>
+          <Button type='submit'>
             Register
-          </button>
+          </Button>
         </form>
       </div>
     </FormProvider>

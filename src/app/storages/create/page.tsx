@@ -7,18 +7,22 @@ import OptionData from '@/interfaces/OptionData';
 import StorageService from '@/services/StorageService';
 import { useUser } from '@/UserContext';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { notFound, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
 import { FormProvider, useForm } from 'react-hook-form';
 import { object, string } from 'yup';
+import { z } from 'zod';
 
 interface FormData {
   name: string;
   parentStorageId?: string;
 }
 
-const schema = object({
-  name: string().required('Name is required').max(128)
+const schema = z.object({
+  name: z.string().min(1, 'Required').max(128),
+  parentStorageId: z.string()
 });
 
 export default function Create() {
@@ -32,7 +36,7 @@ export default function Create() {
 
   const methods = useForm<FormData>({
     mode: 'onBlur',
-    resolver: yupResolver(schema)
+    resolver: zodResolver(schema)
   });
 
   const [options, setOptions] = useState([] as OptionData[]);
@@ -59,6 +63,7 @@ export default function Create() {
   }, []);
 
   const onSubmit = async (data: FormData) => {
+    console.log(data)
     const storage = { name: data.name } as StorageDTO;
 
     if (data.parentStorageId) {
@@ -68,11 +73,11 @@ export default function Create() {
       storage.parentStorageName = parentStorage?.label;
     }
 
-    const response = await new StorageService().add(storage, userContext);
+    // const response = await new StorageService().add(storage, userContext);
     
-    if (response.data) {
-      router.push('/storages');
-    }
+    // if (response.data) {
+    //   router.push('/storages');
+    // }
   };
 
   return (
@@ -88,11 +93,10 @@ export default function Create() {
             label='Parent Storage Name'
             options={options} />
 
-          <button
-            className='btn btn-primary'
+          <Button
             type='submit'>
             Submit
-          </button>
+          </Button>
         </form>
       </div>
     </FormProvider>

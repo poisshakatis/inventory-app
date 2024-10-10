@@ -1,4 +1,5 @@
 import { ErrorMessage } from '@hookform/error-message';
+import { Form } from 'react-bootstrap';
 import { useFormContext } from 'react-hook-form';
 
 interface Props {
@@ -11,15 +12,11 @@ export default function Input({ type = 'text', name, label }: Props) {
   const { register, formState: { errors } } = useFormContext();
 
   return (
-    <div className='form-floating mb-3'>
-      <input
-        className='form-control'
-        id={name}
-        type={type}
-        {...register(name)} />
-      <label htmlFor={name}>{label}</label>
+    <Form.Group className='mb-3'>
+      <Form.Label>{label}</Form.Label>
+      <Form.Control type={type} {...register(name)} />
 
       <ErrorMessage errors={errors} name={name} />
-    </div>
+    </Form.Group>
   );
 }

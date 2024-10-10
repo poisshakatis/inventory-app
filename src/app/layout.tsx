@@ -5,12 +5,14 @@ import './globals.css';
 import Footer from '@/components/nav/Footer';
 import Header from '@/components/nav/Header';
 import { UserProvider } from '@/UserContext';
+import { Container } from 'react-bootstrap';
+import { NextUIProvider } from '@nextui-org/react';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Inventory App',
-  description: 'trial work',
+  title: 'Inventorio',
+  description: 'demo',
 };
 
 export default function RootLayout({
@@ -19,19 +21,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang='en' className='dark'>
       <body className={inter.className}>
-        <UserProvider>
-          <Header />
+        <NextUIProvider>
+          <UserProvider>
+            <Header />
 
-          <div className='container'>
-            <main role='main' className='pb-3'>
-              {children}
-            </main>
-          </div>
+            <Container>
+              <main role='main' className='pb-3'>
+                {children}
+              </main>
+            </Container>
 
+          </UserProvider>
           <Footer />
-        </UserProvider>
+        </NextUIProvider>
       </body>
     </html>
   );

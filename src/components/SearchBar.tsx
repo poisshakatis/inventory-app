@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import useDebounce from '@/hooks/useDebounce';
 import BaseEntity from '@/interfaces/BaseEntity';
-import Link from 'next/link';
+import { Button } from 'react-bootstrap';
 
 interface Props<TEntity extends BaseEntity> {
   fetchData: (value: string) => Promise<TEntity[]>;
@@ -51,7 +51,7 @@ export default function SearchBar<TEntity extends BaseEntity>({ fetchData, sugge
                 <a style={{ cursor: 'pointer' }}>{suggestion[suggestionKey]?.toString()}</a>
               </td>
               <td>
-                <Link href={`/${indexEndpoint}/details/${suggestion.id}`}>Details</Link>
+                <Button href={`/${indexEndpoint}/details/${suggestion.id}`}>Details</Button>
               </td>
             </tr>
           )}

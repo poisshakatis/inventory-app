@@ -6,6 +6,7 @@ import { useUser } from '@/UserContext';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { Breadcrumb, Button } from 'react-bootstrap';
 
 export default function Index() {
   const userContext = useUser();
@@ -40,17 +41,20 @@ export default function Index() {
 
   return (
     <>
-      <h1>Index</h1>
+      <Breadcrumb>
+        <Breadcrumb.Item href='/'>Home</Breadcrumb.Item>
+        <Breadcrumb.Item active>Storages</Breadcrumb.Item>
+      </Breadcrumb>
 
-      <p>
-        <Link href={'/storages/create'}>Create New</Link>
-      </p>
+      <Link href='/storages/create'>
+        <Button>Create New</Button>
+      </Link>
 
       <table className='table'>
         <thead>
           <tr>
             <th>Name</th>
-            <th>ParentStorageName</th>
+            <th>Parent Storage Name</th>
             <th></th>
           </tr>
         </thead>
@@ -60,13 +64,14 @@ export default function Index() {
               <td>{storage.name}</td>
               <td>{storage.parentStorageName}</td>
               <td>
-                <Link href={`/storages/edit/${storage.id}`}>Edit</Link>
-                |
-                {!data.find(s => s.parentStorageId === storage.id) && <button
-                  className='btn btn-danger'
-                  onClick={() => onClick(storage.id!)}>
-                  Delete
-                </button>}
+                <Link href={`/storages/edit/${storage.id}`}>
+                  <Button>Edit</Button>
+                </Link>
+                &nbsp;
+                {!data.find(s => s.parentStorageId === storage.id) &&
+                  <Button variant='danger' onClick={() => onClick(storage.id!)}>
+                    Delete
+                  </Button>}
               </td>
             </tr>
           )}
