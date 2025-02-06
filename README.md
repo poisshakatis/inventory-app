@@ -1,5 +1,5 @@
 # NB!
-Tegemist on Net Group proovitööga
+Tegemist on Net Group proovitööga. Kasutaks juba komponent-raamistikku nagu HeroUI (NextUI)
 
 # Next.js & NextUI Template
 
