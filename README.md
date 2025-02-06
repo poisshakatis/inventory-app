@@ -1,5 +1,5 @@
 # NB!
-Tegemist on Net Group proovitööga. Kasutaks juba komponent-raamistikku nagu HeroUI (NextUI)
+Tegemist on sisselogitud kasutaja andmete säilitamise demoga kasutades küpsiseid
 
 # Next.js & NextUI Template
 
